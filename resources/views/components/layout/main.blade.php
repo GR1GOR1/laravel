@@ -14,6 +14,8 @@
     <header>
         <div class="container border-bottom pt-2 pb-2 mb-2">
             Logo
+            <a href="/posts">POSTS</a>
+            <a href="/cars">CARS</a>
         </div>
     </header>
     <div class="container">

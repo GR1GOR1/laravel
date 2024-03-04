@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Posts;
+use App\Http\Controllers\Cars;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,3 +26,5 @@ Route::get('/posts/{id}', [ Posts::class, 'show'])->name('posts.show');
 Route::post('/posts', [ Posts::class, 'store']);
 Route::get('/posts/{id}/edit', [ Posts::class, 'edit']);
 Route::put('/posts/{id}', [ Posts::class, 'update'])->name('posts.update');
+
+Route::resource('cars', Cars::class); // Автоматом генерирует всю схему выше
