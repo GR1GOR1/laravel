@@ -16,8 +16,17 @@
             Logo
             <a href="/posts">POSTS</a>
             <a href="/cars">CARS</a>
+            <a href="/cars/trashed">Deleted Cars</a>
         </div>
     </header>
+    <!-- Лучше сделать отдельным компонентом -->
+    <!-- Можно сразу подготовить конфиг гед будут текст и тип сообщения, т.е. не писать отдельно успешный алерт -->
+    @if (session('alert'))
+        <div class="alert alert-infp d-flex align-items-center" role="alert">
+                {{ session('alert') }}
+        </div>
+    @endif
+    <!--  -->
     <div class="container">
         <h1>{{ $h1 ?? $title }}</h1>
         {{ $slot }}
