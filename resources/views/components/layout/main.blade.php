@@ -13,7 +13,16 @@
 <body>
     <header>
         <div class="container border-bottom pt-2 pb-2 mb-2">
-            Logo
+           <div class="row">
+                <div class="col"><div class="alert">Logo</div></div>
+                <div class="col">
+                    @auth
+                        1
+                    @else
+                        2
+                    @endif
+                </div>
+           </div>
             <a href="/posts">POSTS</a>
             <a href="/cars">CARS</a>
             <a href="/cars/trashed">Deleted Cars</a>

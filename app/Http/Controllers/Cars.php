@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Cars\Status;
 use App\Http\Requests\Cars\Store as StoreRequest;
 use App\Http\Requests\Cars\Update as UpdateRequest;
 use Illuminate\Http\Request;
@@ -18,7 +19,9 @@ class Cars extends Controller
      */
     public function index()
     {
-        $cars = Car::with('brand.country')->orderByDesc('created_at')->get();
+        $cars = Car::ofActive()->get();
+        //->where('status', Status::ACTIVE)
+        //$cars = Car::with('brand.country', 'tags')->orderByDesc('created_at')->get();
         //dd(trans('alerts.cars.edited'));
         return view('cars.index', compact('cars'));
     }
@@ -51,6 +54,7 @@ class Cars extends Controller
 
     public function show(Car $car)
     {
+        // dd($car->status->text());
         return view('cars.show', compact('car'));
     }
 
@@ -76,8 +80,14 @@ class Cars extends Controller
 
     public function destroy(Car $car)
     {
-        $car->delete();
-        return redirect()->route('cars.index')->with('alert', trans('alerts.cars.deleted'));
+        // dd($car->canDelete); Для просмотра заданного атрибута
+        // if($car->status === Status::DRAFT || $car->status === Status::CANCELED){
+        if ($car->canDelete) {
+            $car->delete();
+            return redirect()->route('cars.index')->with('alert', trans('alerts.cars.deleted'));    
+        }
+
+        return redirect()->route('cars.show', [ $car->id ])->with('alert', trans('cant remove'));  
     }
 
     public function trashed() {
