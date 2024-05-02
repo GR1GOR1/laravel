@@ -16,12 +16,15 @@
            <div class="row">
                 <div class="col"><div class="alert">Logo</div></div>
                 <div class="col d-flex justify-content-end">
-                    Hello hot boyyyyy
+                    @auth
+                        U`r cool bro!
+                    @else
+                        <a href="{{ route('auth.sessions.create') }}">Login</a>
+                    @endif
                 </div>
            </div>
             <a href="/posts">POSTS</a>
             <a href="/cars">CARS</a>
-            <a href="/cars/trashed">Deleted Cars</a>
         </div>
     </header>
     <!-- Лучше сделать отдельным компонентом -->
@@ -30,11 +33,6 @@
     <div class="row">
         <div class="col col-3">Menu</div>
         <div class="col col-9">
-            @if (session('alert'))
-                <div class="alert alert-infp d-flex align-items-center" role="alert">
-                        {{ session('alert') }}
-                </div>
-            @endif
             <div class="container">
                 <h1>{{ $h1 ?? $title }}</h1>
                 {{ $slot }}

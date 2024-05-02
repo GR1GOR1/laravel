@@ -19,10 +19,11 @@ class Cars extends Controller
      */
     public function index()
     {
-        $cars = Car::ofActive()->get();
+        // $cars = Car::ofActive()->get();
         //->where('status', Status::ACTIVE)
         //$cars = Car::with('brand.country', 'tags')->orderByDesc('created_at')->get();
         //dd(trans('alerts.cars.edited'));
+        $cars = Car::orderByDesc('created_at')->get();
         return view('cars.index', compact('cars'));
     }
 

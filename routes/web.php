@@ -6,6 +6,7 @@ use App\Http\Controllers\Brands;
 use App\Http\Controllers\Auth\Sessions;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Public\Cars as PublicCars; 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,21 +33,23 @@ Route::middleware(['auth'])->get('/secret', function () {
     return 'secret page';
 });
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified'])->prefix('/admin')->group(function () {
     // code here smthng
+    Route::get('/home', [Cars::class, 'index']);
+    Route::get('/posts', [Posts::class, 'index']);
+    Route::get('/posts/create', [Posts::class, 'create']);
+    Route::get('/posts/{id}', [Posts::class, 'show'])->name('posts.show');
+    Route::post('/posts', [Posts::class, 'store']);
+    Route::get('/posts/{id}/edit', [Posts::class, 'edit']);
+    Route::put('/posts/{id}', [Posts::class, 'update'])->name('posts.update');
+
+    Route::get('cars/trashed', [Cars::class, 'trashed'])->name('cars.trashed');
+    Route::put('cars/{car}/restore', [Cars::class, 'restore'])->name('cars.restore');
+    Route::resource('cars', Cars::class); // Автоматом генерирует всю схему выше
+
+    Route::resource('brands', Brands::class);
 });
 
+
+Route::get('/', [PublicCars::class, 'index'])->name('home');
 // Обратить внимание на порядок, иначе /create ловит как id поста и тогда полчаем 404
-Route::get('/home', [ Cars::class, 'index']);
-Route::get('/posts', [ Posts::class, 'index']);
-Route::get('/posts/create', [ Posts::class, 'create']);
-Route::get('/posts/{id}', [ Posts::class, 'show'])->name('posts.show');
-Route::post('/posts', [ Posts::class, 'store']);
-Route::get('/posts/{id}/edit', [ Posts::class, 'edit']);
-Route::put('/posts/{id}', [ Posts::class, 'update'])->name('posts.update');
-
-Route::get('cars/trashed', [Cars::class, 'trashed'])->name('cars.trashed');
-Route::put('cars/{car}/restore', [Cars::class, 'restore'])->name('cars.restore');
-Route::resource('cars', Cars::class); // Автоматом генерирует всю схему выше
-
-Route::resource('brands', Brands::class);
