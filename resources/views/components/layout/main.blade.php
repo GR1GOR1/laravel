@@ -28,7 +28,21 @@
     <!-- Можно сразу подготовить конфиг гед будут текст и тип сообщения, т.е. не писать отдельно успешный алерт -->
     <div class="container">
     <div class="row">
-        <div class="col col-3">Menu</div>
+        <div class="col col-3">
+            <div class="list-group">
+               <ul>
+                    <li class="list-group-item">
+                        <a href="{{ route('cars.index') }}">Cars</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="{{ route('brands.index') }}">Brands</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="{{ route('account.index') }}">Account</a>
+                    </li>
+               </ul>
+            </div>
+        </div>
         <div class="col col-9">
             @if (session('alert'))
                 <div class="alert alert-infp d-flex align-items-center" role="alert">

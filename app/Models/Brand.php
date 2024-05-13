@@ -14,8 +14,12 @@ class Brand extends Model
     public function cars() {
         return $this->hasMany(Car::class);
     }
-
+    
     public function country() {
         return $this->belongsTo(Country::class);
+    }
+
+    public function comments() {
+        return $this->morphMany(Comment::class, 'commentable');
     }
 }

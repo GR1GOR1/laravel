@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Comments;
 use App\Http\Controllers\Posts;
 use App\Http\Controllers\Cars;
 use App\Http\Controllers\Brands;
@@ -53,3 +54,6 @@ Route::middleware(['auth', 'verified'])->prefix('/admin')->group(function () {
 
 Route::get('/', [PublicCars::class, 'index'])->name('home');
 // Обратить внимание на порядок, иначе /create ловит как id поста и тогда полчаем 404
+Route::get('/catalog/{car}', [PublicCars::class, 'show'])->name('catalog.show');
+
+Route::post('/comments', [Comments::class, 'store'])->name('comments.store');

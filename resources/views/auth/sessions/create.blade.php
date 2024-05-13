@@ -1,4 +1,4 @@
-<x-layout.main title="Vhod na sait =)">
+<x-layout.guest title="Vhod na sait =)">
     <x-form action="{{ route('auth.sessions.store') }}">
     <div class="mb-3">
         <x-form-input name="email" type="email" label="Email" />
@@ -13,4 +13,4 @@
             <button class="btn btn-success">Войти</button>
         </div>
     </x-form>
-</x-layout>
+</x-layout.guest>
