@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Account;
 use App\Http\Controllers\Comments;
 use App\Http\Controllers\Posts;
 use App\Http\Controllers\Cars;
@@ -44,11 +45,15 @@ Route::middleware(['auth', 'verified'])->prefix('/admin')->group(function () {
     Route::get('/posts/{id}/edit', [Posts::class, 'edit']);
     Route::put('/posts/{id}', [Posts::class, 'update'])->name('posts.update');
 
-    Route::get('cars/trashed', [Cars::class, 'trashed'])->name('cars.trashed');
-    Route::put('cars/{car}/restore', [Cars::class, 'restore'])->name('cars.restore');
-    Route::resource('cars', Cars::class); // Автоматом генерирует всю схему выше
+    Route::middleware('can:cars')->group(function(){
+        Route::get('cars/trashed', [Cars::class, 'trashed'])->name('cars.trashed');
+        Route::put('cars/{car}/restore', [Cars::class, 'restore'])->name('cars.restore');
+        Route::resource('cars', Cars::class); // Автоматом генерирует всю схему выше
+    });
 
     Route::resource('brands', Brands::class);
+    Route::get('/account', [Account::class, 'index'])->name('account.index');
+    Route::delete('/logout', [Sessions::class, 'destroy'])->name('auth.sessions.destroy');
 });
 
 

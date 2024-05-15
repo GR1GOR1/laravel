@@ -31,9 +31,11 @@
         <div class="col col-3">
             <div class="list-group">
                <ul>
+                    @can('cars')
                     <li class="list-group-item">
                         <a href="{{ route('cars.index') }}">Cars</a>
                     </li>
+                    @endif
                     <li class="list-group-item">
                         <a href="{{ route('brands.index') }}">Brands</a>
                     </li>
