@@ -5,24 +5,40 @@ namespace App\Http\Controllers;
 use App\Enums\Cars\Status;
 use App\Http\Requests\Cars\Store as StoreRequest;
 use App\Http\Requests\Cars\Update as UpdateRequest;
+use App\Services\AddressParser\ParserInterface;
 use Illuminate\Http\Request;
 
 use App\Models\Car;
 use App\Models\Brand;
 use App\Models\Tag;
 use Illuminate\Support\Facades\DB;
+use Dadata\DadataClient;
+use Throwable;
 
 class Cars extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(ParserInterface $addressParser)
+    // public function index(DadataClient $dadata)
     {
         // $cars = Car::ofActive()->get();
         //->where('status', Status::ACTIVE)
         //$cars = Car::with('brand.country', 'tags')->orderByDesc('created_at')->get();
         //dd(trans('alerts.cars.edited'));
+
+        // $dadata = new \Dadata\DadataClient(config('dadata.token'), config('dadata.secret'));
+
+        // try {
+        //     $response = $addressParser->clean("мск сухонская 11 89");
+        // }
+        // catch (Throwable) {
+
+        // }
+
+        // dd($response);
+
         $cars = Car::orderByDesc('created_at')->get();
         return view('cars.index', compact('cars'));
     }
