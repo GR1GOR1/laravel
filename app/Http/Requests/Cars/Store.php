@@ -8,9 +8,6 @@ use App\Models\Car;
 
 class Store extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
@@ -21,8 +18,10 @@ class Store extends FormRequest
         $transmissions = config('app-cars.transmissions');
 
         return [
-            'brand' => 'required|max:64|min:2',
+            'brand_id' => 'required|exists:brands,id',
             'model' => 'required|max:64|min:2',
+            'tags' => 'array',
+            'tags.*' => 'integer|exists:tags,id',
             // 'vin' => 'required|max:64|min:2|unique:cars,vin',
             // 'vin' => ['required', 'max:64', 'min:2', Rule::unique(Car::class, 'vin')->ignore($this->car)],
             'vin' => ['required', 'max:64', 'min:2', $this->vinUniqueRule() ],
@@ -36,14 +35,16 @@ class Store extends FormRequest
 
     public function attributes() {
         return [
-            'brand' => 'Марка',
+            'brand_id' => 'Марка',
             'model' => 'Модель',
             'vin' => 'VIN',
-            'transmission' => 'Коробка передач'
+            'transmission' => 'Коробка передач',
+            'tags' => 'Теги'
         ];
     }
 
     protected function vinUniqueRule() {
-        return Rule::unique(Car::class, 'vin');
+        return Rule::unique(Car::class, 'vin')->whereNull('deleted_at');
+        // return Rule::unique(Car::class, 'vin');
     }
 }

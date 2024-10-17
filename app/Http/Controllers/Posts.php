@@ -11,6 +11,11 @@ use App\Models\Post;
 class Posts extends Controller
 {
 
+    public function __construct()
+    {
+        $this->authorizeResource(Post::class);
+    }
+
     public function index()
     {
         // Использовать только в модельках
@@ -29,13 +34,14 @@ class Posts extends Controller
         ]);
     }
 
-    public function show(string $id)
+    public function show(Post $post)
     {
-        $posts = Post::findOrFail($id);
+        // $posts = Post::findOrFail($id);
 
-        return view('posts.show', [
-            'post' => $posts
-        ]);
+        // return view('posts.show', [
+        //     'post' => $posts
+        // ]);
+        return view('posts.show', compact('post'));
     }
 
     public function create()
@@ -52,8 +58,11 @@ class Posts extends Controller
 
         // $fields = $request->all(['title', 'content']); 
                
-        $post = Post::create($request->validated());
-        return redirect("/posts/{$post->id}"); // use named routes DONT USE IN NORMAL CODE!!! ITS STUPIED
+        // $post = Post::create($request->validated());
+        $post = Post::make($request->validated());
+        $post->user_id = auth()->id();
+        $post->save();
+        return redirect("/admin/posts/{$post->id}"); // use named routes DONT USE IN NORMAL CODE!!! ITS STUPIED
     }
 
     public function destroy() //Делать методом delete
@@ -61,9 +70,9 @@ class Posts extends Controller
 
     }
 
-    public function update(SaveRequest $request, string $id) //Делать методом put
+    public function update(SaveRequest $request, Post $post) //Делать методом put
     {
-        $post = Post::findOrFail($id);
+        // $post = Post::findOrFail($id);
 
         // $validate = $request->validate([
         //     'title' => 'required|unique:posts|max:25|min:5',
@@ -75,9 +84,9 @@ class Posts extends Controller
         return redirect()->route('posts.show', [$post->id]);
     }
 
-    public function edit(string $id)
+    public function edit(Post $post)
     {
-        $post = Post::findOrFail($id);
+        // $post = Post::findOrFail($id);
 
         // return view('posts.edit', [
         //     'post' => $post

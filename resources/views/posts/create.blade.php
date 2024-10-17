@@ -1,6 +1,6 @@
 <x-layout.main title="Create post">
     <h2>Create post</h2>
-    <form method="post" action="/posts">
+    <form method="post" action="{{ route('posts.store') }}">
         @csrf
         <!-- <input type="hidden" name="_token" value="{{ csrf_token() }}" /> -->
         <x-input label="Post title" name="title" />
