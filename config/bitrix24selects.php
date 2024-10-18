@@ -1,5 +1,10 @@
 <?
 return [
+    'contract_list' => [
+        'id',
+        'title',
+        'ufCrm4Service'
+    ],
     'contract' => [
         'id',
         'title',
@@ -16,6 +21,15 @@ return [
         'ufCrm4OtherAccesses'
     ],
     'deal' => [
-        "ASSIGNED_BY_ID"
+        'ASSIGNED_BY_ID'
+    ],
+    'task' => [
+        'title',
+        'description',
+        'createdDate',
+        'closedDate',
+        'deadline',
+        'status',
+        'subStatus'
     ]
 ];

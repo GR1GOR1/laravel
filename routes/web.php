@@ -58,6 +58,11 @@ Route::middleware(['auth', 'verified'])->prefix('/admin')->group(function () {
     Route::resource('brands', Brands::class);
     Route::get('/account', [Account::class, 'index'])->name('account.index');
     Route::delete('/logout', [Sessions::class, 'destroy'])->name('auth.sessions.destroy');
+
+});
+Route::middleware(['auth', 'verified'])->prefix('/account')->group(function () {
+    Route::get('/contracts/{id}', [Bxtest::class, 'show'])->middleware('api.fields')->name('bx.show');
+    Route::resource('/contracts', Bxtest::class)->middleware('api.fields');
 });
 
 
@@ -67,4 +72,3 @@ Route::get('/catalog/{car}', [PublicCars::class, 'show'])->name('catalog.show');
 
 Route::post('/comments', [Comments::class, 'store'])->name('comments.store');
 
-Route::resource('/bxtest', Bxtest::class)->middleware('api.fields');

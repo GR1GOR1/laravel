@@ -25,7 +25,7 @@ class ApiFieldsMiddleware
                 if (!isset($response['result'])) {
                     return ["Ответ" => "False"]; // Возвращаем пустой массив в случае ошибки
                 }
-                
+
                 return $response['result']['fields'];
             }
         );
