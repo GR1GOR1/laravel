@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "83588913fb6e2d74390566711d4af5b7",
+    "content-hash": "f92dabc03a5808e3736f6fa2c678be74",
     "packages": [
         {
             "name": "brick/math",
@@ -1096,6 +1096,58 @@
             "time": "2024-04-11T06:57:31+00:00"
         },
         {
+            "name": "jbbcode/jbbcode",
+            "version": "v1.4.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jbowens/jBBCode.git",
+                "reference": "d9a132e7886a11cf997e3ec025a41bdf97899704"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jbowens/jBBCode/zipball/d9a132e7886a11cf997e3ec025a41bdf97899704",
+                "reference": "d9a132e7886a11cf997e3ec025a41bdf97899704",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.1",
+                "phpunit/phpunit": "4.5.*",
+                "satooshi/php-coveralls": "0.6.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "JBBCode": "."
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jackson Owens",
+                    "email": "jackson_owens@alumni.brown.edu",
+                    "homepage": "http://jbowens.org/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A lightweight but extensible BBCode parser written in PHP 5.3.",
+            "homepage": "http://jbbcode.com/",
+            "keywords": [
+                "BB",
+                "bbcode"
+            ],
+            "support": {
+                "issues": "https://github.com/jbowens/jBBCode/issues",
+                "source": "https://github.com/jbowens/jBBCode/tree/v1.4.2"
+            },
+            "time": "2020-06-19T16:09:00+00:00"
+        },
+        {
             "name": "laravel/framework",
             "version": "v10.46.0",
             "source": {
@@ -1943,6 +1995,66 @@
                 }
             ],
             "time": "2024-01-28T23:22:08+00:00"
+        },
+        {
+            "name": "mjohnson/decoda",
+            "version": "6.13.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/milesj/decoda.git",
+                "reference": "5e45580871e4243d2c4d01d3d2e11a74b64b739f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/milesj/decoda/zipball/5e45580871e4243d2c4d01d3d2e11a74b64b739f",
+                "reference": "5e45580871e4243d2c4d01d3d2e11a74b64b739f",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": ">=7.3.0"
+            },
+            "require-dev": {
+                "ext-json": "*",
+                "phpstan/phpstan": "^1.2",
+                "phpunit/phpunit": "^9.5"
+            },
+            "suggest": {
+                "ext-memcached": "Cache data using Memcache",
+                "ext-redis": "Cache data using Redis"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Decoda\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Miles Johnson",
+                    "homepage": "http://milesj.me"
+                }
+            ],
+            "description": "A lightweight lexical string parser for BBCode styled markup.",
+            "homepage": "http://milesj.me/code/php/decoda",
+            "keywords": [
+                "HOOK",
+                "bbcode",
+                "decoda",
+                "filter",
+                "lexer",
+                "markup",
+                "parser"
+            ],
+            "support": {
+                "issues": "https://github.com/milesj/decoda/issues",
+                "source": "https://github.com/milesj/decoda"
+            },
+            "time": "2022-11-10T18:39:56+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -8257,5 +8369,5 @@
         "php": "^8.1"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.3.0"
 }

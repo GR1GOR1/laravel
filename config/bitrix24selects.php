@@ -24,12 +24,12 @@ return [
         'ASSIGNED_BY_ID'
     ],
     'task' => [
-        'title',
-        'description',
-        'createdDate',
-        'closedDate',
-        'deadline',
-        'status',
-        'subStatus'
+        'TITLE',
+        'DESCRIPTION',
+        'CREATED_DATE',
+        'CLOSED_DATE',
+        'DEADLINE',
+        'STATUS',
+        'SUB_STATUS'
     ]
 ];

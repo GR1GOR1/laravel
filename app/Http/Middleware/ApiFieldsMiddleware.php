@@ -42,8 +42,31 @@ class ApiFieldsMiddleware
             }
         );
 
+        $fields_task = Cache::remember(
+            'api_fields3', 60, function () {
+                $response = BX24::call('tasks.task.getFields',[]);
+                
+                if (!isset($response['result'])) {
+                    return ["Ответ" => "False"]; // Возвращаем пустой массив в случае ошибки
+                }
+                
+                foreach ($response['result']['fields'] as $key =>  $value) {
+                    $string = strtolower($key);
+                    $parts = explode('_', $string);
+                    $parts = array_map(function($part, $index) {
+                        return $index == 0 ? $part : ucfirst($part);
+                    }, $parts, array_keys($parts));
+
+                    $response['result']['fields'][implode('', $parts)] = $response['result']['fields'][$key];
+                    unset($response['result']['fields'][$key]);
+                }
+                return $response['result']['fields'];
+            }
+        );
+
         $request->attributes->set('api_fields_contract', $fields_contract);
         $request->attributes->set('api_fields_deal', $fields_deal);
+        $request->attributes->set('api_fields_task', $fields_task);
 
         return $next($request);
     }
