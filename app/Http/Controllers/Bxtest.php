@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 use App\Services\Bitrix24\BX24;
 
@@ -55,6 +56,12 @@ class Bxtest extends Controller
             ]
         )['result']['item'];
 
+        $contents = File::get(base_path("data/{$contract['ufCrm4Service']}.json"));
+        $json = json_decode($contents,true);
+        $test = FieldsJson($json["form"]);
+        dd($json);
+
+
         $con_fields = array_intersect_key($contract, array_flip($single_fields_contract));
 
         $r_contract = FieldsValue($con_fields);
@@ -70,7 +77,6 @@ class Bxtest extends Controller
             ]
         )['result']['tasks'];
 
-        // dd($r_contract);
         $r_task = FieldsValue($tasks, true, 'api_fields_task');
 
         foreach ($r_task as $key => $tsk) {
@@ -93,8 +99,7 @@ class Bxtest extends Controller
                     $r_task[$key]["description"]["value"] = parseBB($r_task[$key]["description"]["value"]);
                 }
             }
-            
-            
+
             $checklist = BX24::call(
                 'task.checklistitem.getlist',
                 [
@@ -105,15 +110,11 @@ class Bxtest extends Controller
             if (isset($checklist[0])) {
                 $title = $checklist[0]["TITLE"];
                 unset($checklist[0]);
-    
+
                 $r_task[$key]["cheklist"][$title] = $checklist;
             }
-
-
-            // dd($r_task);
         }
 
         return  view('bxtest.singlecon', compact('r_contract', 'r_task'));
     }
-
 }

@@ -90,3 +90,56 @@ if (!function_exists('FieldsValue')) {
         return $inputArray;
     }
 }
+if (!function_exists('FieldsJson')) {
+    function FieldsJson(array $inputArray, string $api = 'api_fields_contract')
+    {
+        $fields_list = Request::get($api);
+
+        foreach($inputArray as $k1 => $group) {
+            foreach($group['groups'] as $k2 => $arr) {
+                foreach($arr as $k3 => $val) {
+                    if (isset($fields_list[$val["name"]])) {
+                        $buffer = $fields_list[$val["name"]];
+                        // if ($buffer['type'] == 'enumeration') {
+                        //     if ($buffer['isMultiple'] == false) {
+                        //         foreach ($buffer['items'] as $elem) {
+                        //             if ($elem['ID'] == $inputArray[$k]) {
+                        //                 $inputArray[$k] = [
+                        //                     "title" => $buffer['title'],
+                        //                     "value" => $elem['VALUE']
+                        //                 ];
+                        //             }
+                        //         }
+                        //     }
+                        // } else if ($buffer['type'] == 'enum') {
+                        //     foreach ($buffer['values'] as $key_enum => $elem) {
+                        //         if ($key_enum == $inputArray[$k]) {
+                        //             $inputArray[$k] = [
+                        //                 "title" => $buffer['title'],
+                        //                 "value" => $elem
+                        //             ];
+                        //         }
+                        //     }
+                        // } else if ($buffer['type'] == 'datetime') {
+                        //     if ($inputArray[$k]) {
+                        //         $date = new DateTime($inputArray[$k]);
+                        //         $formattedDate = $date->format('d.m.Y');
+                        //         $inputArray[$k] = [
+                        //             "title" => $buffer['title'],
+                        //             "value" => $formattedDate
+                        //         ];
+                        //     }
+                        // } else {
+                            // $inputArray[$k1][$k2][$k3] = [
+                            //     "title" => $buffer['title'],
+                            //     "value" => $inputArray[$k]
+                            // ];
+                        // }
+                    }
+                }
+            }
+        }
+
+        return $inputArray;
+    }
+}
